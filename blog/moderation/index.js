@@ -13,7 +13,7 @@ app.post("/events", async (req, res) => {
     if (type === 'CommentCreated') {
         // Filters out comments with the word "orange" in it
         const status = data.content.includes('orange') ? 'rejected' : 'approved';
-        await axios.post('http://localhost:4005/events', {
+        await axios.post('http://event-bus-service:4005/events', {
             type: 'CommentModerated',
             data: {
                 id: data.id,
