@@ -7,7 +7,7 @@ const PostCreate = () => {
   const onSubmit = async (event) => {
     event.preventDefault();
 
-    await axios.post("http://udemy.microservice-course.blog/posts", {
+    await axios.post("http://udemy.microservice-course.blog/posts/create", {
       title,
     });
 
