@@ -9,6 +9,15 @@ interface IUser {
 const schema = new mongoose.Schema<IUser>({
     email: { type: String, required: true },
     password: { type: String, required: true },
+}, {
+  toJSON: {
+    transform(doc, ret) {
+      ret.id = ret._id;
+      delete ret._id;
+      delete ret.password;
+      delete ret.__v;
+    },
+  },
 });
 
 // Must NOT be an arrow function otherwise "this"
