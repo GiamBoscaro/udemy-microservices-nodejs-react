@@ -1,5 +1,6 @@
 import 'bootstrap/dist/css/bootstrap.css';
 import buildClient from '../api/build-client';
+import Header from '../components/header';
 
 // Next.JS wraps all the components in a "app component". This file will
 // overwrite that component. Component is any of our React component that
@@ -8,7 +9,7 @@ import buildClient from '../api/build-client';
 const AppComponent = ({ Component, pageProps, currentUser }) => {
   return (
     <div>
-      <h1>Header!</h1>
+      <Header currentUser={currentUser} />
       <Component {...pageProps} />
     </div>
   );
