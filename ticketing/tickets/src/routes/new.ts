@@ -1,6 +1,6 @@
 import express, { Request, Response } from 'express';
 import { body } from 'express-validator';
-import { requireAuth, validateRequest } from '@rallycoding/common';
+import { requireAuth, validateRequest } from '@gboscaro-udemy-ticketing/common';
 import { ITicket, Ticket } from '../models/ticket';
 
 const router = express.Router();
