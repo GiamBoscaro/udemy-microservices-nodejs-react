@@ -1,3 +1,3 @@
 #!/bin/sh
 
-kubectl port-forward nats-deploy-8ff7cc8b5-46klg 4222:4222
+kubectl port-forward nats-deploy-6f59c7cf4c-6f5pt 4222:4222
