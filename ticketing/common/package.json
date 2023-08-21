@@ -1,6 +1,6 @@
 {
   "name": "@gboscaro-udemy-ticketing/common",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "",
   "main": "./build/index.js",
   "types": "./build/index.d.ts",
@@ -10,7 +10,7 @@
   "scripts": {
     "clean": "del ./build/*",
     "build": "npm run clean && tsc",
-    "pub": "git add . && git commit -m \"Updated commons library\" && npm version patch && npm publish"
+    "pub": "npm run build && git add . && git commit -m \"Updated commons library\" && npm version patch && npm publish"
   },
   "keywords": [],
   "author": "",
