@@ -1,27 +1,47 @@
-import mongoose from "mongoose";
-import { Order, OrderStatus } from "./order";
+import mongoose from 'mongoose';
+import { Order, OrderStatus } from './order';
 
-interface ITicket {
-    title: string;
-    price: number;
-}
-interface ITicketDocument extends ITicket {
-    isReserved(): Promise<boolean>;  
+interface TicketAttrs {
+  title: string;
+  price: number;
 }
 
-const schema = new mongoose.Schema<ITicketDocument>({
-    title: { type: String, required: true },
-    price: { type: Number, required: true },
-}, {
-  toJSON: {
-    transform(doc, ret) {
-      ret.id = ret._id;
-      delete ret._id;
+export interface TicketDoc extends mongoose.Document {
+  title: string;
+  price: number;
+  isReserved(): Promise<boolean>;
+}
+
+interface TicketModel extends mongoose.Model<TicketDoc> {
+  build(attrs: TicketAttrs): TicketDoc;
+}
+
+const ticketSchema = new mongoose.Schema(
+  {
+    title: {
+      type: String,
+      required: true,
+    },
+    price: {
+      type: Number,
+      required: true,
+      min: 0,
     },
   },
-});
+  {
+    toJSON: {
+      transform(doc, ret) {
+        ret.id = ret._id;
+        delete ret._id;
+      },
+    },
+  }
+);
 
-schema.methods.isReserved = async function () {
+ticketSchema.statics.build = (attrs: TicketAttrs) => {
+  return new Ticket(attrs);
+};
+ticketSchema.methods.isReserved = async function () {
   // this === the ticket document that we just called 'isReserved' on
   const existingOrder = await Order.findOne({
     ticket: this,
@@ -37,6 +57,6 @@ schema.methods.isReserved = async function () {
   return !!existingOrder;
 };
 
-const Ticket = mongoose.model('Ticket', schema);
+const Ticket = mongoose.model<TicketDoc, TicketModel>('Ticket', ticketSchema);
 
-export { Ticket, ITicket };
+export { Ticket };

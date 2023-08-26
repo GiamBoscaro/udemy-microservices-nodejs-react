@@ -1,5 +1,5 @@
-import { requireAuth } from '@gboscaro-udemy-ticketing/common';
 import express, { Request, Response } from 'express';
+import { requireAuth } from '@gboscaro-udemy-ticketing/common';
 import { Order } from '../models/order';
 
 const router = express.Router();

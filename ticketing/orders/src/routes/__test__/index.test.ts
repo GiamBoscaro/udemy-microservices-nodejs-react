@@ -4,7 +4,7 @@ import { Order } from '../../models/order';
 import { Ticket } from '../../models/ticket';
 
 const buildTicket = async () => {
-  const ticket = new Ticket({
+  const ticket = Ticket.build({
     title: 'concert',
     price: 20,
   });
@@ -21,7 +21,6 @@ it('fetches orders for an particular user', async () => {
 
   const userOne = global.signin();
   const userTwo = global.signin();
-
   // Create one order as User #1
   await request(app)
     .post('/api/orders')

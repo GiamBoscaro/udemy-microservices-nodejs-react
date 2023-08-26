@@ -1,16 +1,32 @@
 import mongoose from 'mongoose';
 import { OrderStatus } from '@gboscaro-udemy-ticketing/common';
-import { ITicket } from './ticket';
+import { TicketDoc } from './ticket';
+export { OrderStatus };
 
-interface IOrder {
+interface OrderAttrs {
   userId: string;
   status: OrderStatus;
   expiresAt: Date;
-  ticket: ITicket;
+  ticket: TicketDoc;
 }
 
-const schema = new mongoose.Schema<IOrder>({
-    userId: { type: String, required: true },
+interface OrderDoc extends mongoose.Document {
+  userId: string;
+  status: OrderStatus;
+  expiresAt: Date;
+  ticket: TicketDoc;
+}
+
+interface OrderModel extends mongoose.Model<OrderDoc> {
+  build(attrs: OrderAttrs): OrderDoc;
+}
+
+const orderSchema = new mongoose.Schema(
+  {
+    userId: {
+      type: String,
+      required: true,
+    },
     status: {
       type: String,
       required: true,
@@ -24,15 +40,21 @@ const schema = new mongoose.Schema<IOrder>({
       type: mongoose.Schema.Types.ObjectId,
       ref: 'Ticket',
     },
-}, {
-  toJSON: {
-    transform(doc, ret) {
-      ret.id = ret._id;
-      delete ret._id;
-    },
   },
-});
+  {
+    toJSON: {
+      transform(doc, ret) {
+        ret.id = ret._id;
+        delete ret._id;
+      },
+    },
+  }
+);
 
-const Order = mongoose.model('Order', schema);
+orderSchema.statics.build = (attrs: OrderAttrs) => {
+  return new Order(attrs);
+};
 
-export { Order, IOrder, OrderStatus };
+const Order = mongoose.model<OrderDoc, OrderModel>('Order', orderSchema);
+
+export { Order };

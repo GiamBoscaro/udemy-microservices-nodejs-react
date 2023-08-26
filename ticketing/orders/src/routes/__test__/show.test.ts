@@ -4,7 +4,7 @@ import { Ticket } from '../../models/ticket';
 
 it('fetches the order', async () => {
   // Create a ticket
-  const ticket = new Ticket({
+  const ticket = Ticket.build({
     title: 'concert',
     price: 20,
   });
@@ -30,7 +30,7 @@ it('fetches the order', async () => {
 
 it('returns an error if one user tries to fetch another users order', async () => {
   // Create a ticket
-  const ticket = new Ticket({
+  const ticket = Ticket.build({
     title: 'concert',
     price: 20,
   });
