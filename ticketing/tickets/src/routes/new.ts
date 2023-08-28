@@ -1,7 +1,7 @@
 import express, { Request, Response } from 'express';
 import { body } from 'express-validator';
 import { requireAuth, validateRequest } from '@gboscaro-udemy-ticketing/common';
-import { ITicket, Ticket } from '../models/ticket';
+import { Ticket } from '../models/ticket';
 import { TicketCreatedPublisher } from '../events/publishers/ticket-created-publisher';
 import { natsWrapper } from '../nats-wrapper';
 
@@ -19,12 +19,10 @@ router.post(
   validateRequest,
   async (req: Request, res: Response) => {
     const { title, price } = req.body;
-
-
-    const ticket = new Ticket<ITicket>({
+    const ticket = Ticket.build({
       title,
       price,
-      userId: req.currentUser!.id
+      userId: req.currentUser!.id,
     });
     await ticket.save();
     await new TicketCreatedPublisher(natsWrapper.client).publish({
