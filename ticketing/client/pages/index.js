@@ -16,13 +16,10 @@ const LandingPage = ({ currentUser }) => {
 // executed here is the localhost inside the Docker container (127.0.0.1:80)
 // BEWARE: in the scenario that we are navigating in the application without refreshing
 // (so using the Router to navigate) then getInitialProps WILL GET EXECUTED IN THE BROWSER!
-LandingPage.getInitialProps = async (context) => {
+LandingPage.getInitialProps = async (context, client, currentUser) => {
   // context contains req, the request that is coming from the client requesting
   // the html page, and so it contains many useful headers from the client
-  const client = buildClient(context);
-  const { data } = await client.get('/api/users/currentuser');
-
-  return data;
+  return {};
 };
 
 export default LandingPage;
