@@ -1,7 +1,5 @@
 import { MongoMemoryServer } from 'mongodb-memory-server';
 import mongoose from 'mongoose';
-import request from 'supertest';
-import { app } from '../app';
 import jwt from 'jsonwebtoken';
 
 declare global {
@@ -15,7 +13,7 @@ beforeAll(async () => {
   process.env.JWT_KEY = 'asdfasdf';
   process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
 
-  const mongo = await MongoMemoryServer.create();
+  mongo = await MongoMemoryServer.create();
   const mongoUri = mongo.getUri();
 
   await mongoose.connect(mongoUri, {});
