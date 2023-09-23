@@ -14,8 +14,7 @@ spec:
     spec:
       containers:
         - name: client
-          image: ticketing/client
-          imagePullPolicy: Never
+          image: giammarcoboscaro/ticketing-client
 ---
 apiVersion: v1
 kind: Service
