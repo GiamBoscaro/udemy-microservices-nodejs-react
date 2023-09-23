@@ -10,7 +10,7 @@ build:
   local:
     push: false
   artifacts:
-    - image: ticketing/auth
+    - image: giammarcoboscaro/ticketing-auth
       context: auth
       docker:
         dockerfile: Dockerfile
@@ -18,7 +18,7 @@ build:
         manual:
           - src: 'src/**/*.ts'
             dest: .
-    - image: ticketing/tickets
+    - image: giammarcoboscaro/ticketing-tickets
       context: tickets
       docker:
         dockerfile: Dockerfile
@@ -26,7 +26,7 @@ build:
         manual:
           - src: 'src/**/*.ts'
             dest: .
-    - image: ticketing/orders
+    - image: giammarcoboscaro/ticketing-orders
       context: orders
       docker:
         dockerfile: Dockerfile
@@ -34,7 +34,7 @@ build:
         manual:
           - src: 'src/**/*.ts'
             dest: .
-    - image: ticketing/expiration
+    - image: giammarcoboscaro/ticketing-expiration
       context: expiration
       docker:
         dockerfile: Dockerfile
@@ -42,7 +42,7 @@ build:
         manual:
           - src: 'src/**/*.ts'
             dest: .
-    - image: ticketing/payments
+    - image: giammarcoboscaro/ticketing-payments
       context: payments
       docker:
         dockerfile: Dockerfile
@@ -50,7 +50,7 @@ build:
         manual:
           - src: 'src/**/*.ts'
             dest: .
-    - image: ticketing/client
+    - image: giammarcoboscaro/ticketing-client
       context: client
       docker:
         dockerfile: Dockerfile

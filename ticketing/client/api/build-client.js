@@ -8,8 +8,7 @@ export default ({ req }) => {
     // The axios call will be executed from inside the container, in the k8s cluster
     // so I need to point to the ingress
     return axios.create({
-      baseURL:
-        'http://ingress-nginx-controller.ingress-nginx.svc.cluster.local',
+      baseURL: process.env.BASE_URL,
       // ingress doesn't proxy the host http://ingress-nginx-controller.ingress-nginx.svc.cluster.local
       // but recognizes only udemy.microservice-course.ticketing
       // But inside the req.headers there is the Host header that is: Host: udemy.microservice-course.ticketing
