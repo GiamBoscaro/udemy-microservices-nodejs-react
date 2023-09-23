@@ -1,12 +1,10 @@
 name: tests-payments
 
 on:
+  workflow_dispatch:
   pull_request:
     paths:
       - 'ticketing/payments/**'
-
-env:
-  STRIPE_KEY: sk_test_51I57b5FCYxFKFs25CSkBWmnzYFHa3V8oclrAhN7KjADRCWSzdKUbwVKr6BgTfjPvynVgCjSgdAc5RtLzaAk4b8Zq00asxCYVwo
 
 jobs:
   build:
@@ -14,3 +12,5 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - run: cd ticketing/payments && npm install && npm run test:ci
+        env:
+          STRIPE_KEY: ${{ secrets.STRIPE_KEY }}
