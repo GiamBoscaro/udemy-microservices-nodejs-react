@@ -14,8 +14,7 @@ spec:
     spec:
       containers:
         - name: tickets
-          image: ticketing/tickets
-          imagePullPolicy: Never
+          image: giammarcoboscaro/ticketing-tickets
           env:
             - name: NATS_CLIENT_ID
               valueFrom:
