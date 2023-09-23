@@ -1,7 +1,6 @@
 name: tests-payments
 
 on:
-  workflow_dispatch:
   pull_request:
     paths:
       - 'ticketing/payments/**'
