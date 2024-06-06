@@ -12,12 +12,21 @@ jobs:
   build:
     runs-on: ubuntu-22.04
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
+      - name: Use Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '21.7.x'
       - run: docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
         env:
           DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
           DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
-      - run: cd ticketing/tickets && docker build -t giammarcoboscaro/ticketing-tickets .
+      - run: npm install
+        working-directory: ./ticketing/tickets
+      - run: npm run build
+        working-directory: ./ticketing/tickets
+      - run: docker build -t giammarcoboscaro/ticketing-tickets .
+        working-directory: ./ticketing/tickets
       - run: docker push giammarcoboscaro/ticketing-tickets
       - uses: digitalocean/action-doctl@v2
         with:
