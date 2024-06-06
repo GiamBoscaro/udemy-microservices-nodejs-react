@@ -16,6 +16,7 @@ beforeAll(async () => {
   const mongoUri = mongo.getUri();
 
   await mongoose.connect(mongoUri, {});
+  process.env.SERVICE_STATUS = 'HEALTHY';
 });
 
 beforeEach(async () => {
@@ -24,6 +25,7 @@ beforeEach(async () => {
   for (let collection of collections) {
     await collection.deleteMany({});
   }
+  process.env.SERVICE_STATUS = 'HEALTHY';
 });
 
 afterAll(async () => {

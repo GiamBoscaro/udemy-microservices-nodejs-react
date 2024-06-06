@@ -1,9 +1,9 @@
-name: tests-payments
+name: tests-expiration
 
 on:
   pull_request:
     paths:
-      - 'ticketing/payments/**'
+      - 'ticketing/expiration/**'
 
 jobs:
   build:
@@ -15,8 +15,6 @@ jobs:
         with:
           node-version: '21.7.x'
       - run: npm install
-        working-directory: ./ticketing/payments
+        working-directory: ./ticketing/expiration
       - run: npm run test:ci
-        working-directory: ./ticketing/payments
-        env:
-          STRIPE_KEY: ${{ secrets.STRIPE_KEY }}
+        working-directory: ./ticketing/expiration

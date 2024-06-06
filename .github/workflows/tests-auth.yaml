@@ -7,7 +7,14 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     steps:
-      - uses: actions/checkout@v3
-      - run: cd ticketing/auth && npm install && npm run test:ci
+      - uses: actions/checkout@v4
+      - name: Use Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '21.7.x'
+      - run: npm install
+        working-directory: ./ticketing/auth
+      - run: npm run test:ci
+        working-directory: ./ticketing/auth
