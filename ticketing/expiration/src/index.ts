@@ -1,3 +1,4 @@
+import { app } from './app';
 import { OrderCreatedListener } from './events/listeners/order-created-listener';
 import { natsWrapper } from './nats-wrapper';
 
@@ -26,9 +27,15 @@ const start = async () => {
     process.on('SIGTERM', () => natsWrapper.client.close());
 
     new OrderCreatedListener(natsWrapper.client).listen();
+    process.env.SERVICE_STATUS = 'HEALTHY';
   } catch (err) {
     console.error(err);
   }
+
+  app.listen(3000, () => {
+    console.log('Listening on port 3000');
+    process.env.SERVICE_STATUS = 'HEALTHY';
+  });
 };
 
 start();
