@@ -30,11 +30,11 @@ const start = async () => {
     process.env.SERVICE_STATUS = 'HEALTHY';
   } catch (err) {
     console.error(err);
+    process.env.SERVICE_STATUS = 'UNHEALTHY';
   }
 
   app.listen(3000, () => {
     console.log('Listening on port 3000');
-    process.env.SERVICE_STATUS = 'HEALTHY';
   });
 };
 

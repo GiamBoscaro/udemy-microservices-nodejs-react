@@ -40,13 +40,14 @@ const start = async () => {
 
     await mongoose.connect(process.env.MONGO_URI);
     console.log('Connected to MongoDb');
+    process.env.SERVICE_STATUS = 'HEALTHY';
   } catch (err) {
     console.error(err);
+    process.env.SERVICE_STATUS = 'UNHEALTHY';
   }
 
   app.listen(3000, () => {
     console.log('Listening on port 3000');
-    process.env.SERVICE_STATUS = 'HEALTHY';
   });
 };
 
